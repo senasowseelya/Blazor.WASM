@@ -7,7 +7,7 @@ namespace Blazor.WASM
     {
         private IStringLocalizer _localization;
 
-        public ResXMudLocalizer(IStringLocalizer<LocalizationResource> localizer)
+        public ResXMudLocalizer(IStringLocalizer localizer)
         {
             _localization = localizer;
         }

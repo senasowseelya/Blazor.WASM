@@ -31,7 +31,7 @@ namespace Blazor.WASM.Styles
                 {
                     Default = new Default
                     {
-                        FontFamily = ["NunitoSans", "Helvetica", "Arial", "sans-serif"],
+                        FontFamily = ["Inter", "Helvetica", "Arial", "sans-serif"],
                     }
                 }
 

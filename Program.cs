@@ -39,6 +39,7 @@ builder.Services.AddScoped<BaseService>();
 builder.Services.AddScoped<AuthInterceptor>();
 builder.Services.AddScoped<HttpClientResponseInterceptor>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddLocalization();
 builder.Services.AddTransient<MudLocalizer, ResXMudLocalizer>();
 builder.Services.AddTransient<ResXMudLocalizer>();
 
