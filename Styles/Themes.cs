@@ -14,7 +14,7 @@ namespace Blazor.WASM.Styles
                 {
                     AppbarBackground = Colors.Shades.White,
                     Background = "#f2f5fa",
-                    Primary = Colors.Blue.Accent4,
+                    Primary = "#2162f7",
                     Secondary = Colors.LightBlue.Lighten5,
                     Tertiary = Colors.Purple.Lighten2,
                     Black = Colors.Shades.Black,
@@ -22,11 +22,7 @@ namespace Blazor.WASM.Styles
 
 
                 },
-                PaletteDark = new PaletteDark()
-                {
-                    Primary = Colors.Green.Accent1,
-                    Secondary = Colors.Red.Accent2
-                },
+                
                 Typography = new Typography
                 {
                     Default = new Default
@@ -36,6 +32,16 @@ namespace Blazor.WASM.Styles
                 }
 
             };
+            PaletteDark darkPalette = new()
+            {
+                Primary = mudTheme.PaletteLight.Primary.ColorDarken(0.2f),
+                Secondary = mudTheme.PaletteLight.Secondary.ColorDarken(0.2f),
+                Background = mudTheme.PaletteLight.Background.ColorDarken(0.5f),
+                AppbarBackground = mudTheme.PaletteLight.AppbarBackground.ColorDarken(0.3f),
+                Black = Colors.Shades.Black,
+                White = Colors.Shades.White
+            };
+            mudTheme.PaletteDark = darkPalette;
             return mudTheme;
         }
     }

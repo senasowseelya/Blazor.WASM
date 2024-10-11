@@ -17,7 +17,7 @@
                       Elevation="25" Class="mx-0 my-3 pa-0" />
 
         </MudStack>
-        @if (_user != null && !_user.IsAdmin)
+        @if (_user is not null && !_user.IsAdmin)
         {
             <MudIcon Icon="@Icons.Material.Outlined.Business" Color="Color.Dark" Class="ml-3 me-1" Size="Size.Small"></MudIcon>
             <MudText Color="Color.Dark"><b>@_user.AgencyName</b></MudText>

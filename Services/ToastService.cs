@@ -1,5 +1,4 @@
-﻿using Blazor.WASM.Common;
-using MudBlazor;
+﻿using MudBlazor;
 
 namespace Blazor.WASM.Services
 {
@@ -15,21 +14,21 @@ namespace Blazor.WASM.Services
         public void ShowSuccess(string message)
         {
             _snackBarService.Add(
-                message: ToastMessage(Constants.Success, message),
+                message: message,
                 severity: Severity.Success);
         }
 
         public void ShowInfo(string message)
         {
             _snackBarService.Add(
-                message: ToastMessage(Constants.Info, message),
+                message: message,
                 severity: Severity.Info);
         }
 
         public void ShowWarning(string message)
         {
             _snackBarService.Add(
-                message: ToastMessage(Constants.Warning, message),
+                message: message,
                 severity: Severity.Warning);
 
         }
@@ -37,9 +36,8 @@ namespace Blazor.WASM.Services
         public void ShowError(string message)
         {
             _snackBarService.Add(
-                message: ToastMessage(Constants.Error, message),
+                message: message,
                 severity: Severity.Error);
-
         }
         private static string ToastMessage(string title, string message) => $"<ul><li><strong>{title}<strong></li><li>{message}</li></ul>";
     }

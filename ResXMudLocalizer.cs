@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Blazor.WASM.Shared.Resources;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Blazor.WASM
@@ -7,7 +8,7 @@ namespace Blazor.WASM
     {
         private IStringLocalizer _localization;
 
-        public ResXMudLocalizer(IStringLocalizer localizer)
+        public ResXMudLocalizer(IStringLocalizer<LocalizationResource> localizer)
         {
             _localization = localizer;
         }
