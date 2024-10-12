@@ -1,39 +1,1 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Blazor.WASM</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+﻿@using Blazor.WASM.Common@using Microsoft.AspNetCore.Components.Authorization<MudNavMenu Color="Color.Primary" Rounded Bordered >    <MudStack Spacing="2" Class="h-80">        <MudNavLink Href="/dashboard" IconColor="Color.Inherit" Icon="@Icons.Material.Outlined.Dashboard"                    Match="NavLinkMatch.All" >            Home        </MudNavLink>        <MudNavLink Href="/agents"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.Group"                    Match="NavLinkMatch.All">            Workflow        </MudNavLink>        <MudNavLink Href="/agencies"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.Business"                    Match="NavLinkMatch.All">            Rules        </MudNavLink>        <MudNavLink Href="/coverage-plans"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.Description"                    Match="NavLinkMatch.All">            Integration        </MudNavLink>        <MudNavLink Href="/quotes"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.RequestQuote"                    Match="NavLinkMatch.All">            Data Source        </MudNavLink>        <MudNavLink Href="/policies"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.VerifiedUser"                    Match="NavLinkMatch.All">            Global Variable        </MudNavLink>        <MudNavLink Href="/support"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.HelpCenter"                    Match="NavLinkMatch.All">            Approval        </MudNavLink>    </MudStack>    <MudDivider DividerType="DividerType.Middle" Class="ma-5" />    <MudStack Spacing="2" Class="">        <MudNavLink Href="/support"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.HelpCenter"                    Match="NavLinkMatch.All">            Workspace        </MudNavLink>        <MudNavLink Href="/support"                    IconColor="Color.Inherit"                    Icon="@Icons.Material.Outlined.HelpCenter"                    Match="NavLinkMatch.All">            Monitor        </MudNavLink>    </MudStack></MudNavMenu>

@@ -1,66 +1,64 @@
-﻿@using Blazor.WASM.Common.Models
+﻿@using Blazor.WASM.Common
+@using Blazor.WASM.Common.Models
+@using Blazor.WASM.Components
+@using Blazor.WASM.Contracts
 @using Blazor.WASM.Services
+@using Blazor.WASM.StateFactory
 @using Blazor.WASM.Styles
+@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
+@inject ILocalStorageProvider LocalStorage
 @inject ToastService ToastService
+@inject IAccountManagement AccountManagement
+@inject NavigationManager Navigation
+@inject ResXMudLocalizer L
 
 <MudThemeProvider @ref="@_mudThemeProvider" Theme="Themes.DefaultTheme" @bind-IsDarkMode="@_isDarkMode" />
-<MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<MudPopoverProvider />
 
 <MudLayout Class="@(_isDarkMode ? "dark" : null)">
-    <MudAppBar Elevation="0" Fixed="true"
-               Class="bg-[--mud-palette-appbar-background] bg-[--mud-palette-appbar-background90] backdrop-blur-sm">
-        <MudStack Row="true" Spacing="24" Class="ma-0 pa-0">
-            <MudImage Src="images/main_logo.jpg" Width="40" Style="border-radius:50%" Alt="User Display Picture"
-                      Elevation="25" Class="mx-0 my-3 pa-0" />
-
-        </MudStack>
-        @if (_user is not null && !_user.IsAdmin)
-        {
-            <MudIcon Icon="@Icons.Material.Outlined.Business" Color="Color.Dark" Class="ml-3 me-1" Size="Size.Small"></MudIcon>
-            <MudText Color="Color.Dark"><b>@_user.AgencyName</b></MudText>
-        }
-        <MudSpacer />
-        <MudStack Row="true">
-            <MudToggleIconButton @bind-Toggled="@_isDarkMode" Size="Size.Medium" Color="Color.Default"
-                                 Icon="@Icons.Material.Rounded.LightMode" ToggledIcon="@Icons.Material.Rounded.DarkMode"
-                                 Class="p-2 my-auto" />
-            <MudMenu AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" FullWidth="true">
-                <ActivatorContent>
-                    <MudStack Spacing="0" Row="true" Class="flex flex-row">
-                        <MudAvatar>
-                            <MudImage Src="images/profile.jpg"></MudImage>
-                        </MudAvatar>
-                        <MudText Typo="Typo.body2" Class="my-auto">@_user?.DisplayName</MudText>
-                    </MudStack>
-                </ActivatorContent>
-                <ChildContent>
-                    <MudMenuItem>Profile</MudMenuItem>
-                    <MudMenuItem>Logout</MudMenuItem>
-                </ChildContent>
-            </MudMenu>
-        </MudStack>
-    </MudAppBar>
-    <MudDrawer Elevation="1" Class="border-solid border-1 mud-border-tertiary" DisableOverlay="true"
+    <MudDrawer Elevation="1" Class="ma-2 rounded pa-3" DisableOverlay="true"
                ClipMode="DrawerClipMode.Always" MiniWidth="52px" Width="200px" Variant="DrawerVariant.Mini"
                @bind-Open="@_drawerOpen" Breakpoint="@Breakpoint.Xs">
         <MudStack Class="h-[91.5vh]">
             <NavMenu />
-            <MudIconButton Class="@_expanderIconClass" Icon="@_expanderIcon"
-                           OnClick="@((e) => DrawerToggle())" Size="@Size.Medium" />
+            @* <MudIconButton Class="@_expanderIconClass" Icon="@_expanderIcon"
+            OnClick="@((e) => DrawerToggle())" Size="@Size.Medium" /> *@
         </MudStack>
     </MudDrawer>
     <MudMainContent>
         <MudContainer Class="fixed pa-0 ma-0" MaxWidth="MaxWidth.ExtraLarge">
+            @*  <AppLoader></AppLoader> *@
         </MudContainer>
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="ma-0 pa-4">
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="ma-0">
             <ErrorBoundary Context="Exception">
-               <ChildContent>
+                <ChildContent>
+                    <MudPaper Class="pa-3 ma-2 rounded-lg">
+                        <MudStack Justify="Justify.SpaceBetween" Row>
+                            <MudStack Justify="Justify.SpaceBetween" Spacing="0">
+                                <MudText Typo="Typo.caption" Class="pa-0" Color="Color.Secondary">Lets get started</MudText>
+                                <MudText Class="font-bold pa-0">Hi Gopal!</MudText>
+                            </MudStack>
+                            <MudStack Class="rounded-full w-1/5 border-2 py-1 px-2 align-items-center" Spacing="3" Style="background-color:#F0F4FC" Row>
+                                <MudIcon Icon="@Icons.Material.Outlined.Notifications" Size="Size.Small"></MudIcon>
+                                <MudIcon Icon="@Icons.Material.Outlined.Info" Size="Size.Small"></MudIcon>
+                                <MudStack Row Class="bg-white rounded-full justify-content-around px-1" Spacing="0">
+                                <MudAvatar>
+                                    <MudImage Src="images/profile.jpg"></MudImage>
+                                </MudAvatar>
+                                <MudStack Class="ma-0" Spacing="0">
+                                    <MudText Class="font-bold pa-0 text-xs mx-4">Shyam Gopal</MudText>
+                                    <MudText Class="pa-0 text-xs mx-4">Developer</MudText>
+                                </MudStack>
+                                </MudStack>
+                            </MudStack>
+                       </MudStack>
+                    </MudPaper>
                     @Body
-               </ChildContent> 
-               <ErrorContent>
+                </ChildContent>
+                <ErrorContent>
                     @{
                         OnError(@Exception.Message);
                     }
@@ -70,33 +68,54 @@
     </MudMainContent>
 </MudLayout>
 
-
-@code
-{
+@code {
     bool _drawerOpen = true;
     string _expanderIconClass = "rounded-lg ma-0 pa-0 mx-auto mt-auto";
     string _expanderIcon = Icons.Material.Filled.KeyboardDoubleArrowLeft;
     bool _isDarkMode;
     MudThemeProvider _mudThemeProvider;
     UserContext _user;
-
-    protected override void OnInitialized()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        //TODO: Get User from LocalStorage
-        _user = new()
+        if (firstRender)
         {
-            DisplayName = "John Doe",
-        };
-        base.OnInitialized();
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorage.GetItemAsync<UserContext>(Constants.UserContextLocalStorageKey);
+        if (user is not null)
+            _user = user;
+    }
+
     void OnError(string message)
     {
         ToastService.ShowError(message);
         ToastService.ShowInfo("Please refresh the browser");
     }
+
     void DrawerToggle()
     {
         _expanderIcon = _drawerOpen ? Icons.Material.Filled.KeyboardDoubleArrowRight : Icons.Material.Filled.KeyboardDoubleArrowLeft;
         _drawerOpen = !_drawerOpen;
     }
+
+    async Task OnSystemPreferenceChanged(bool isDarkMode)
+    {
+        _isDarkMode = isDarkMode;
+    }
+
+    public void ViewMyProfile()
+    {
+        Navigation.NavigateTo("myprofile");
+    }
+
+    public async Task Logout()
+    {
+        await AccountManagement.LogoutAsync();
+    }
+
 }

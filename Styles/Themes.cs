@@ -13,14 +13,15 @@ namespace Blazor.WASM.Styles
                 PaletteLight = new PaletteLight()
                 {
                     AppbarBackground = Colors.Shades.White,
-                    Background = "#f2f5fa",
-                    Primary = "#2162f7",
-                    Secondary = Colors.LightBlue.Lighten5,
-                    Tertiary = Colors.Purple.Lighten2,
+                    Background= "#F0F4FC",
+                    Primary = "#2161F7",
+                    Secondary = "#7D7D7D",
+                    Tertiary="#FFFFFF",
+                    TextPrimary ="#000000",
+                    TextSecondary = "#7D7D7D",
+                    Success = "#0AA007",
                     Black = Colors.Shades.Black,
                     White = Colors.Shades.White
-
-
                 },
                 
                 Typography = new Typography
@@ -29,6 +30,7 @@ namespace Blazor.WASM.Styles
                     {
                         FontFamily = ["Inter", "Helvetica", "Arial", "sans-serif"],
                     }
+                    
                 }
 
             };

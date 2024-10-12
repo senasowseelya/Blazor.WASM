@@ -16,14 +16,11 @@
 
 <MudGrid Style="width:100%; overflow-x:hidden">
     <MudItem xs="6" Class="relative ma-0 pa-0 login-bg">
-
+        <img src="images/login-bg.png" alt="Logo" class="logo" style="height:100vh"/>
     </MudItem>
 
     <MudItem xs="6" Class="ma-0 pa-0">
         <MudStack Class="p-20">
-            <MudItem>
-                <img src="images/logo.png" alt="Logo" class="logo"/>
-            </MudItem>
             <MudItem Class="mt-10">
                 <MudText Class="font-bold my-5" Typo="Typo.h5"> @L[LocalizationResource.LoginPageMessage]</MudText>
                 <MudForm @ref="form" @bind-IsValid="@success">
