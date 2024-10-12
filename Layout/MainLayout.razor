@@ -20,7 +20,7 @@
 
 <MudLayout Class="@(_isDarkMode ? "dark" : null)">
     <MudDrawer Elevation="1" Class="ma-2 rounded pa-3" DisableOverlay="true"
-               ClipMode="DrawerClipMode.Always" MiniWidth="52px" Width="200px" Variant="DrawerVariant.Mini"
+               ClipMode="DrawerClipMode.Always" MiniWidth="52px" Width="250px" Variant="DrawerVariant.Mini"
                @bind-Open="@_drawerOpen" Breakpoint="@Breakpoint.Xs">
         <MudStack Class="h-[91.5vh]">
             <NavMenu />
@@ -49,7 +49,7 @@
                                     <MudImage Src="images/profile.jpg"></MudImage>
                                 </MudAvatar>
                                 <MudStack Class="ma-0" Spacing="0">
-                                    <MudText Class="font-bold pa-0 text-xs mx-4">Shyam Gopal</MudText>
+                                    <MudText Class="font-bold pa-0 text-xs mx-2">Shyam Gopal</MudText>
                                     <MudText Class="pa-0 text-xs mx-4">Developer</MudText>
                                 </MudStack>
                                 </MudStack>
