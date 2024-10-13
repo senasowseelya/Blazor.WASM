@@ -78,7 +78,7 @@
             _submitBtnLabel = "logging in...";
             _disableSubmitBtn = true;
             await form.Validate();
-            NavigationManager.NavigateTo("/home");
+            NavigationManager.NavigateTo("./home");
             if (success)
             {
                 AuthenticationResult result = await AccountManagement.LoginAsync(model);
