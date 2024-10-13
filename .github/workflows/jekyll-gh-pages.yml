@@ -49,7 +49,7 @@ jobs:
       - name: GitHub Pages Blazor WASM
         uses: na1307/blazor-github-pages@v2.0
         with:
-          project-path: Blazor.WASM.csproj
+          project-path: Blazor.WASM/Blazor.WASM.csproj
           publish-path: _out
         
           
