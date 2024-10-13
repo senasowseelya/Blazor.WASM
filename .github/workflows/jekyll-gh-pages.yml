@@ -48,7 +48,17 @@ jobs:
     steps:
       - name: GitHub Pages Blazor WASM
         uses: na1307/blazor-github-pages@v2.0
+      - name: Restore .NET dependencies
+        run: dotnet restore "./Blazor.WASM/Blazor.WASM.csproj"
+      - name: Build the project
+        run: dotnet build "./Blazor.WASM/Blazor.WASM.csproj" --configuration Release
+
+      - name: Publish the project
+        run: dotnet publish "./Blazor.WASM/Blazor.WASM.csproj" --configuration Release --output ./publish
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
         with:
-          project-path: .
+          publish_dir: ./publish
         
           
